@@ -8,7 +8,8 @@ import smartypants from 'remark-smartypants'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://NightFeather0615.github.io',
+  base: '/blog',
   integrations: [sitemap(), react(), image(), tailwind()],
   markdown: {
     extendDefaultPlugins: true,
