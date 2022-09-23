@@ -35,7 +35,7 @@ export default defineConfig({
           p: '',
           a: 'underline underline-offset-2 hover:text-sky-600 decoration-sky-600 dark:hover:text-sky-400 dark:decoration-sky-400',
           hr: 'border-top border-gray-500 my-2',
-          li: "flex before:content-['●'] before:pr-2 pl-1 align-middle"
+          li: "flex before:content-['•'] md:before:content-['●'] before:pr-2 pl-1 align-middle"
         }
       ]
     ]
