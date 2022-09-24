@@ -29,12 +29,12 @@ jobs:
     - name: Sync Notion posts
       run: |
         ls
-        node ./tools/sync-notion-posts.cjs --notion-secret {{ secrets.NOTION_SECRET }} --database-id {{ secrets.DATABASE_ID }}
+        node ./tools/sync-notion-posts.cjs --notion-secret ${{ secrets.NOTION_SECRET }} --database-id ${{ secrets.DATABASE_ID }}
     - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git commit -m "Add changes" -a
+        git commit -m "Sync posts at ${{ github.event.repository.updated_at }}" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
