@@ -5,6 +5,8 @@ import Footer from "../components/Footer.astro";
 import Body from "../components/Body.astro";
 import Content from "../components/Content.astro";
 
+import '../styles/prism-nord.css';
+
 export interface Props {
 	content: {
 		title: string;
@@ -24,7 +26,6 @@ const {
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="https://raw.githubusercontent.com/NightFeather0615/blog/master/public/styles/prism-nord.css" />
     <BaseHead title={title} description={description} />
   </head>
 
