@@ -19,12 +19,12 @@ export interface Props {
 const {
 	content: { title, description, thumbnail, createdAt, lastEditedAt, tags },
 } = Astro.props;
-
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="/public/prism-nord.css">
     <BaseHead title={title} description={description} />
   </head>
 
@@ -54,15 +54,10 @@ const {
 				<h1 hidden class="text-4xl font-bold font-mplus py-1 pt-8"/>
 				<h2 hidden class="text-2xl font-bold font-mplus py-1 pt-6"/>
 				<h3 hidden class="text-xl font-bold font-mplus py-1 pt-4"/>
-				<ul hidden class="list-disc list-inside" />
+				<ul hidden class="list-disc list-inside pl-2" />
 				<ol hidden class="list-decimal list-inside" />
       </Content>
     </main>
     <Footer />
   </Body>
 </html>
-<style>
-	li::before {
-    content:"• ";
-	}
-</style>

@@ -13,11 +13,7 @@ export default defineConfig({
   integrations: [sitemap(), react(), image(), tailwind()],
   markdown: {
     extendDefaultPlugins: true,
-    syntaxHighlight: 'shiki',
-    shikiConfig: {
-      theme: 'nord',
-      wrap: false,
-    },
+    syntaxHighlight: 'prism',
     remarkPlugins: [
       smartypants,
     ],
@@ -31,7 +27,7 @@ export default defineConfig({
           img: 'border border-sky-200 dark:border-gray-800 rounded-xl mb-6',
           a: 'underline underline-offset-2 hover:text-sky-500 decoration-sky-500 dark:hover:text-sky-400 dark:decoration-sky-400 transition-colors duration-50',
           hr: 'border-top border-gray-500 my-2',
-          ul: 'list-disc list-inside',
+          ul: 'list-disc list-inside pl-2',
           ol: 'list-decimal list-inside'
         }
       ]
