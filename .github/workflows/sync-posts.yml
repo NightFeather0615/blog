@@ -27,7 +27,8 @@ jobs:
         cache: 'npm'
     - name: Sync Notion posts
       run: |
-        node /tools/sync-notion-posts.cjs --notion-secret {{ secrets.NOTION_SECRET }} --database-id {{ secrets.DATABASE_ID }}
+        ls
+        node ./tools/sync-notion-posts.cjs --notion-secret {{ secrets.NOTION_SECRET }} --database-id {{ secrets.DATABASE_ID }}
     - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
