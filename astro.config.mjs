@@ -28,7 +28,7 @@ export default defineConfig({
           h1: 'text-4xl font-bold font-mplus py-1 pt-8',
           h2: 'text-2xl font-bold font-mplus py-1 pt-6',
           h3: 'text-xl font-bold font-mplus py-1 pt-4',
-          img: 'border border-sky-200 dark:border-gray-600 rounded-xl mb-6',
+          img: 'border border-sky-200 dark:border-gray-800 rounded-xl mb-6',
           a: 'underline underline-offset-2 hover:text-sky-500 decoration-sky-500 dark:hover:text-sky-400 dark:decoration-sky-400 transition-colors duration-50',
           hr: 'border-top border-gray-500 my-2',
           ul: 'list-disc list-inside',
