@@ -1,0 +1,33 @@
+---
+import BlogPost from "../../layouts/BlogPost.astro";
+
+class PostInfo {
+  constructor(
+    public id: string, 
+    public title: string,
+    public description: string,
+    public thumbnail: string,
+    public createdAt: string,
+    public lastEditedAt: string
+  ) {}
+}
+
+export async function getStaticPaths() {
+  const posts = await fetch("https://nightfeather-blog-functions.netlify.app/.netlify/functions/fetch-posts/")
+	.then((response) => response.text())
+	.then((text) => {
+		return JSON.parse(text) as Array<PostInfo>;
+	});
+
+  return posts.map((post) => {
+    return {
+      params: { id: post.id },
+      props: { id: post.id }
+    };
+  })
+}
+
+const { id } = Astro.props
+---
+
+<BlogPost postId={id}/>

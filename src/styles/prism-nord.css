@@ -21,6 +21,7 @@ pre[class*="language-"] {
 /* Code blocks */
 pre[class*="language-"] {
 	padding: 1em;
+	font-size: 14px;
 	margin: .5em 0;
 	overflow: auto;
   -ms-overflow-style: none; /* Edge, Internet Explorer */

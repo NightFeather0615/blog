@@ -4,29 +4,71 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Body from "../components/Body.astro";
 import Content from "../components/Content.astro";
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
+import addClasses from 'rehype-add-classes';
+import rehypeRaw from 'rehype-raw'
+import rehypePrism from 'rehype-prism-plus';
+import remarkGfm from 'remark-gfm'
+import smartypants from 'remark-smartypants'
 
 import '../styles/prism-nord.css';
 
 export interface Props {
-	content: {
-		title: string;
-		description: string;
-		thumbnail: string;
-		createdAt: string;
-		lastEditedAt: string;
-		tags: Array<string>;
-	};
+	postId: string;
 }
 
+class PostData {
+  constructor(
+    public id: string,
+    public title: string,
+    public description: string,
+    public thumbnail: string,
+    public createdAt: string,
+    public lastEditedAt: string,
+    public tags: Array<string>,
+    public content: string
+  ) {}
+}
 const {
-	content: { title, description, thumbnail, createdAt, lastEditedAt, tags },
+	postId
 } = Astro.props;
+
+const postData = await fetch(`https://nightfeather-blog-functions.netlify.app/.netlify/functions/fetch-post-by-id?id=${postId}`)
+  .then( async (response) => {
+    return await response.json() as PostData;
+  })
+
+const postContent = await unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkRehype, {allowDangerousHtml: true})
+  .use(rehypeRaw)
+  .use(rehypeStringify)
+  .use(rehypePrism)
+  .use(
+    addClasses,
+    {
+      h1: 'text-4xl font-bold py-1 pt-8',
+      h2: 'text-2xl font-bold py-1 pt-6',
+      h3: 'text-xl font-bold py-1 pt-4',
+      img: 'border border-sky-200 dark:border-gray-800 rounded-xl mb-6',
+      a: 'underline underline-offset-2 hover:text-sky-500 decoration-sky-500 dark:hover:text-sky-400 dark:decoration-sky-400 transition-colors duration-50',
+      hr: 'border-top border-gray-500 my-2',
+      ul: 'list-disc list-inside pl-2',
+      ol: 'list-decimal list-inside'
+    }
+  )
+  .use(smartypants)
+  .process(postData.content);
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={postData.title} description={postData.description} />
   </head>
 
   <Body>
@@ -35,28 +77,22 @@ const {
       <Content className="pt-6 leading-8">
         <div class="mb-8">
           {
-            thumbnail && (
+            postData.thumbnail && (
               <img
                 class="border border-sky-200 dark:border-gray-800 rounded-xl"
                 width={720}
                 height={360}
-                src={thumbnail}
+                src={postData.thumbnail}
                 alt=""
               />
             )
           }
         </div>
-        <div class="text-4xl my-1 font-mplus font-semibold">{title}</div>
-        <div class="text-lg font-mplus pt-1">{description}</div>
+        <div class="text-4xl my-1 font-mplus font-semibold">{postData.title}</div>
+        <div class="text-lg font-mplus pt-1">{postData.description}</div>
         <hr class="border-top border-gray-500 my-2" />
-				<div class="pb-9">發布於 {new Date(createdAt).toLocaleDateString("zh-TW")} • 最後修改於 {new Date(lastEditedAt).toLocaleDateString("zh-TW")}</div>
-        <slot />
-        <a hidden class="underline underline-offset-2 hover:text-sky-500 decoration-sky-500 dark:hover:text-sky-400 dark:decoration-sky-400 text-2xl transition-colors duration-50"/>
-				<h1 hidden class="text-4xl font-bold font-mplus py-1 pt-8"/>
-				<h2 hidden class="text-2xl font-bold font-mplus py-1 pt-6"/>
-				<h3 hidden class="text-xl font-bold font-mplus py-1 pt-4"/>
-				<ul hidden class="list-disc list-inside pl-2" />
-				<ol hidden class="list-decimal list-inside" />
+				<div class="pb-9">發布於 {new Date(postData.createdAt).toLocaleDateString("zh-TW")} • 最後修改於 {new Date(postData.lastEditedAt).toLocaleDateString("zh-TW")}</div>
+        {postContent}
       </Content>
     </main>
     <Footer />
