@@ -60,7 +60,7 @@ async function fetchBlogPosts(databaseId: string): Promise<void> {
       return;
     }
     let rawMarkdown = await notionToMarkdown.pageToMarkdown(postData.id);
-    let markdownString = notionToMarkdown.toMarkdownString(rawMarkdown).replaceAll("  </details>", "</details>");
+    let markdownString = notionToMarkdown.toMarkdownString(rawMarkdown).replace(/^  \<\/details\>$/mg, "</details>").replace(/^  $/mg, "<br/>");
     let markdownFrontmatter = parseMarkdownFrontmatter(
       postData.properties.Title.title[0].plain_text,
       postData.properties.Description.rich_text[0].plain_text,

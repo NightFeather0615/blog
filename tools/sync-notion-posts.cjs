@@ -84,7 +84,7 @@ function fetchBlogPosts(databaseId) {
                                     return [4 /*yield*/, notionToMarkdown.pageToMarkdown(postData.id)];
                                 case 1:
                                     rawMarkdown = _a.sent();
-                                    markdownString = notionToMarkdown.toMarkdownString(rawMarkdown).replaceAll("  </details>", "</details>");
+                                    markdownString = notionToMarkdown.toMarkdownString(rawMarkdown).replace(/^  \<\/details\>$/mg, "</details>").replace(/^  $/mg, "<br/>");
                                     markdownFrontmatter = parseMarkdownFrontmatter(postData.properties.Title.title[0].plain_text, postData.properties.Description.rich_text[0].plain_text, postData.properties.Thumbnail.files[0].external.url, postData.created_time, postData.last_edited_time, parsePostTags(postData.properties.Tags.multi_select));
                                     console.log("Writting post ".concat(postData.id, "..."));
                                     fs.writeFileSync(__dirname + "/../src/pages/posts/".concat(postData.id, ".md"), markdownFrontmatter + markdownString);

@@ -6,6 +6,9 @@ module.exports = {
     extend: {
       fontFamily: {
         mplus: ['Noto Sans TC', 'Verdana', 'sans-serif']
+      },
+      rotate: {
+        '360': '360deg',
       }
     }
   },
