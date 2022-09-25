@@ -54,7 +54,7 @@ const postContent = await unified()
       h1: 'text-4xl font-bold py-1 pt-8',
       h2: 'text-2xl font-bold py-1 pt-6',
       h3: 'text-xl font-bold py-1 pt-4',
-      img: 'border border-sky-200 dark:border-gray-800 rounded-xl mb-6',
+      img: 'border border-sky-200 dark:border-gray-800 rounded-xl mb-6 transition-colors',
       a: 'underline underline-offset-2 hover:text-sky-500 decoration-sky-500 dark:hover:text-sky-400 dark:decoration-sky-400 transition-colors duration-50',
       hr: 'border-top border-gray-500 my-2',
       ul: 'list-disc list-inside pl-2',
@@ -79,7 +79,7 @@ const postContent = await unified()
           {
             postData.thumbnail && (
               <img
-                class="border border-sky-200 dark:border-gray-800 rounded-xl"
+                class="border border-sky-200 dark:border-gray-800 rounded-xl transition-colors"
                 width={720}
                 height={360}
                 src={postData.thumbnail}
@@ -88,8 +88,19 @@ const postContent = await unified()
             )
           }
         </div>
-        <div class="text-4xl my-1 font-mplus font-semibold">{postData.title}</div>
-        <div class="text-lg font-mplus pt-1">{postData.description}</div>
+        <div class="text-4xl my-1 font-semibold">{postData.title}</div>
+        <div class="text-lg pt-1">{postData.description}</div>
+        <ul class="flex gap-2.5 text-sm py-2">
+          {postData.tags.map((tag) => {
+            return (
+              <li class="bg-sky-500 px-3 py-[0.2rem] rounded-full">
+                <a class="text-center items-center text-sky-50 dark:text-gray-900 font-semibold transition-colors" href={`/blog/tags/${tag}`}>
+                  {tag}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
         <hr class="border-top border-gray-500 my-2" />
 				<div class="pb-9">發布於 {new Date(postData.createdAt).toLocaleDateString("zh-TW")} • 最後修改於 {new Date(postData.lastEditedAt).toLocaleDateString("zh-TW")}</div>
         {postContent}

@@ -3,6 +3,16 @@ import HeaderLink from './HeaderLink.astro';
 import { IoLogoGithub } from 'react-icons/io5/index.js';
 import GithubAvatarIcon from './icons/GithubAvatarIcon';
 import ThemeToggle from './ThemeToggleButton';
+import DropdownMenu from './DropdownMenu';
+
+const tags = await fetch("https://nightfeather-blog-functions.netlify.app/.netlify/functions/fetch-tags/")
+	.then((response) => response.text())
+	.then((text) => {
+		return JSON.parse(text).map((tag) => {
+			return tag.name;
+		}) as Array<string>;
+	});
+
 ---
 
 <header class="fixed w-full p-2 z-20 backdrop-blur-md">
@@ -18,7 +28,8 @@ import ThemeToggle from './ThemeToggleButton';
 				<HeaderLink class={`hover:underline underline-offset-2`} href="https://github.com/NightFeather0615" target="_blank"><IoLogoGithub /> GitHub</HeaderLink>
 			</div>
 			<div class="flex-1"></div>
-			<ThemeToggle client:load />
+			<ThemeToggle client:visible />
+			<DropdownMenu tags={tags} client:visible />
 		</nav>
 	</div>
 </header>

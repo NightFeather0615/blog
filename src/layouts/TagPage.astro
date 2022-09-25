@@ -7,6 +7,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
 import Content from '../components/Content.astro';
 import Masthead from '../components/Masthead.astro';
 import { Image } from '@astrojs/image/components';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+export interface Props {
+  tag: string;
+}
+
+const { tag } = Astro.props;
 
 class PostInfo {
   constructor(
@@ -15,7 +22,8 @@ class PostInfo {
     public description: string,
     public thumbnail: string,
     public createdAt: string,
-    public lastEditedAt: string
+    public lastEditedAt: string,
+    public tags: Array<string>,
   ) {}
 }
 
@@ -26,7 +34,9 @@ const posts = await fetch("https://nightfeather-blog-functions.netlify.app/.netl
 			(a: PostInfo, b: PostInfo) => {
 				return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf();
 			}
-		) as Array<PostInfo>;
+		).filter((post: PostInfo) => {
+      return post.tags.includes(tag);
+    }) as Array<PostInfo>;
 	});
 ---
 
@@ -41,9 +51,7 @@ const posts = await fetch("https://nightfeather-blog-functions.netlify.app/.netl
 			<Masthead/>
 			<Content>
 				<section>
-					<p class="mb-6 text-center text-xl p-2">
-						簡單的生活日誌，紀錄由開發、活動、旅遊以及各種瑣事拼湊成的日常
-					</p>
+					<Breadcrumb>{tag}</Breadcrumb>
 				</section>
 				<section>
 					<ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -62,7 +70,6 @@ const posts = await fetch("https://nightfeather-blog-functions.netlify.app/.netl
 				</section>
 			</Content>
 		</main>
-		<p class="text-gray-500 pt-4 text-center">此網站開發受 <a class="underline underline-offset-2 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-50" href="https://www.craftz.dog/">Takuya Matsuyama</a> 的<a class="underline underline-offset-2 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-50" href="https://www.youtube.com/watch?v=3_JE76PKBWE">影片</a>啟發，將其中的 CMS 由 Inkdrop 改為 Notion 實現</p>
 		<Footer />
 	</Body>
 </html>
