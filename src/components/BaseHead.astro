@@ -16,7 +16,7 @@ const { title, description, image = '/agathe-2cdvYh6ULCs-unsplash.jpg' } = Astro
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/jpg" href={`https://avatars.githubusercontent.com/u/${GITHUB_USER_ID}?v=4`} />
+<link rel="icon" type="image/jpg" href={`/92134690_p0_1x1_round.png`} />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Primary Meta Tags -->
@@ -29,14 +29,14 @@ const { title, description, image = '/agathe-2cdvYh6ULCs-unsplash.jpg' } = Astro
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={image} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={image} />
 
 <script is:inline>
   const theme = (() => {

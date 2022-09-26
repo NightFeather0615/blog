@@ -3,7 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Body from '../components/Body.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_THUMBNAIL } from '../config';
 import Content from '../components/Content.astro';
 import Masthead from '../components/Masthead.astro';
 import { Image } from '@astrojs/image/components';
@@ -33,7 +33,7 @@ const posts = await fetch("https://nightfeather-blog-functions.netlify.app/.netl
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={SITE_THUMBNAIL} />
 	</head>
 	<Body>
 		<Header title={SITE_TITLE} />
