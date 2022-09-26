@@ -2,7 +2,7 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import { GITHUB_USER_ID } from '../config';
+import { GITHUB_USER_ID, SITE_TITLE } from '../config';
 
 export interface Props {
 	title: string;
@@ -16,7 +16,7 @@ const { title, description, image = '/agathe-2cdvYh6ULCs-unsplash.jpg' } = Astro
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/jpg" href={`/92134690_p0_1x1_round.png`} />
+<link rel="icon" type="image/jpg" href={new URL(`/92134690_p0_1x1_round.png`, Astro.url)} />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Primary Meta Tags -->
