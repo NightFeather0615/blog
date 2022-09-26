@@ -93,11 +93,11 @@ const postContent = await unified()
         <ul class="flex gap-2.5 text-sm py-2">
           {postData.tags.map((tag) => {
             return (
-              <li class="bg-sky-400 dark:bg-sky-500 hover:bg-sky-300 dark:hover:bg-sky-600 px-3 py-[0.2rem] rounded-full transition-colors">
-                <a class="text-center items-center text-sky-50 dark:text-gray-900 font-semibold transition-colors" href={`/blog/tags/${tag}`}>
+              <a class="bg-sky-400 dark:bg-sky-500 hover:bg-sky-300 dark:hover:bg-sky-600 px-3 py-[0.2rem] rounded-full transition-colors" href={`/blog/tags/${tag}`}>
+                <li class="text-center items-center text-sky-50 dark:text-gray-900 font-semibold transition-colors">
                   {tag}
-                </a>
-              </li>
+                </li>
+              </a>
             );
           })}
         </ul>
