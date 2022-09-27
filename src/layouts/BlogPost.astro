@@ -8,11 +8,10 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
-import addClasses from 'rehype-add-classes';
-import rehypeRaw from 'rehype-raw'
+import rehypeRaw from 'rehype-raw';
 import rehypePrism from 'rehype-prism-plus';
-import remarkGfm from 'remark-gfm'
-import smartypants from 'remark-smartypants'
+import remarkGfm from 'remark-gfm';
+import smartypants from 'remark-smartypants';
 
 import '../styles/prism-nord.css';
 
@@ -48,19 +47,6 @@ const postContent = await unified()
   .use(rehypeRaw)
   .use(rehypeStringify)
   .use(rehypePrism)
-  .use(
-    addClasses,
-    {
-      h1: 'text-4xl font-bold py-1 pt-8',
-      h2: 'text-2xl font-bold py-1 pt-6',
-      h3: 'text-xl font-bold py-1 pt-4',
-      img: 'border border-sky-200 dark:border-gray-800 rounded-xl mb-6 transition-colors',
-      a: 'underline underline-offset-2 hover:text-sky-500 decoration-sky-500 dark:hover:text-sky-400 dark:decoration-sky-400 transition-colors duration-50',
-      hr: 'border-top border-gray-500 my-2',
-      ul: 'list-disc list-inside pl-2',
-      ol: 'list-decimal list-inside'
-    }
-  )
   .use(smartypants)
   .process(postData.content);
 ---
@@ -103,7 +89,13 @@ const postContent = await unified()
         </ul>
         <hr class="border-top border-gray-500 my-2" />
 				<div class="pb-9">發布於 {new Date(postData.createdAt).toLocaleDateString("zh-TW")} • 最後修改於 {new Date(postData.lastEditedAt).toLocaleDateString("zh-TW")}</div>
-        {postContent}
+        <article class="prose prose-base max-w-none dark:prose-invert 
+        dark:prose-headings:text-gray-200 
+        prose-img:border prose-img:border-sky-200 dark:prose-img:border-gray-800 prose-img:rounded-xl prose-img:transition-colors 
+        prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-sky-500 prose-a:decoration-sky-500 dark:hover:prose-a:text-sky-400 dark:prose-a:decoration-sky-400 prose-a:transition-colors prose-a:duration-50"
+        >
+          {postContent}
+        </article>
       </Content>
     </main>
     <Footer />
