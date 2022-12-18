@@ -6,8 +6,8 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://NightFeather0615.github.io',
-  base: '/blog',
+  site: 'https://blog.nightfeather.dev',
+  base: '/',
   integrations: [sitemap(), react(), image(), tailwind()],
   markdown: {
     extendDefaultPlugins: true,

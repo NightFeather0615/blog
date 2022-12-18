@@ -36,7 +36,7 @@ export default function DropdownMenu({ tags }: Props) {
               return (
                 <DropdownMenuItem
                   key={tag}
-                  href={`/blog/tags/${tag}`}
+                  href={`/tags/${tag}`}
                 >
                   {tag}
                 </DropdownMenuItem>
