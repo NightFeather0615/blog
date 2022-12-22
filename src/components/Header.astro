@@ -1,35 +1,54 @@
 ---
-import HeaderLink from './HeaderLink.astro';
-import { IoLogoGithub } from 'react-icons/io5/index.js';
-import GithubAvatarIcon from './icons/GithubAvatarIcon';
-import ThemeToggle from './ThemeToggleButton';
-import DropdownMenu from './DropdownMenu';
+import HeaderLink from './HeaderLink.astro'
+import { IoLogoGithub } from 'react-icons/io5/index.js'
+import ThemeToggle from './ThemeToggleButton'
+import DropdownMenu from './DropdownMenu'
+import { GITHUB_USER_ID } from '../config'
+import { Image } from '@astrojs/image/components'
 
-const tags = await fetch("https://nightfeather-blog-functions.netlify.app/.netlify/functions/fetch-tags/")
-	.then((response) => response.text())
-	.then((text) => {
-		return JSON.parse(text).map((tag) => {
-			return tag.name;
-		}) as Array<string>;
-	});
-
+const tags = await fetch(
+  'https://nightfeather-blog-functions.netlify.app/.netlify/functions/fetch-tags/'
+)
+  .then(response => response.text())
+  .then(text => {
+    return JSON.parse(text).map(tag => {
+      return tag.name
+    }) as Array<string>
+  })
 ---
 
 <header class="fixed w-full p-2 z-20 backdrop-blur-md">
-	<div class="mx-auto max-w-3xl">
-		<nav class="flex items-center gap-3 text-base">
+  <div class="mx-auto max-w-3xl">
+    <nav class="flex items-center gap-3 text-base">
       <a href="/" class="group">
-				<h2 class="font-semibold p-2 font-mplus text-lg flex gap-1 group-hover:underline underline-offset-2">
-					<GithubAvatarIcon />NightFeather
-				</h2>
+        <h2
+          class="font-semibold p-2 font-mplus text-lg flex gap-1 group-hover:underline underline-offset-2"
+        >
+          <Image
+            class="w-7 inline-block rounded-full md:group-hover:scale-[1.08] transition-transform duration-300"
+            src={`https://avatars.githubusercontent.com/u/${GITHUB_USER_ID}?v=4`}
+            format="webp"
+            quality={100}
+            width={40}
+            height={40}
+            alt="GitHub Avatar"
+          />NightFeather
+        </h2>
       </a>
-			<div class="items-center gap-6 hidden md:flex">
-				<HeaderLink class={`hover:underline underline-offset-2`} href="/posts/6eb09e66-756e-44bd-903b-856aa6025a22">About</HeaderLink>
-				<HeaderLink class={`hover:underline underline-offset-2`} href="https://github.com/NightFeather0615" target="_blank"><IoLogoGithub /> GitHub</HeaderLink>
-			</div>
-			<div class="flex-1"></div>
-			<ThemeToggle client:visible />
-			<DropdownMenu tags={tags} client:visible />
-		</nav>
-	</div>
+      <div class="items-center gap-6 hidden md:flex">
+        <HeaderLink
+          class={`hover:underline underline-offset-2`}
+          href="/posts/6eb09e66-756e-44bd-903b-856aa6025a22">About</HeaderLink
+        >
+        <HeaderLink
+          class={`hover:underline underline-offset-2`}
+          href="https://github.com/NightFeather0615"
+          target="_blank"><IoLogoGithub /> GitHub</HeaderLink
+        >
+      </div>
+      <div class="flex-1"></div>
+      <ThemeToggle client:visible />
+      <DropdownMenu tags={tags} client:visible />
+    </nav>
+  </div>
 </header>

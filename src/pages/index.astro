@@ -1,16 +1,16 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Body from '../components/Body.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_THUMBNAIL } from '../config';
-import Content from '../components/Content.astro';
-import Masthead from '../components/Masthead.astro';
-import { Image } from '@astrojs/image/components';
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import Body from '../components/Body.astro'
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_THUMBNAIL } from '../config'
+import Content from '../components/Content.astro'
+import Masthead from '../components/Masthead.astro'
+import { Image } from '@astrojs/image/components'
 
 class PostInfo {
   constructor(
-    public id: string, 
+    public id: string,
     public title: string,
     public description: string,
     public thumbnail: string,
@@ -19,51 +19,83 @@ class PostInfo {
   ) {}
 }
 
-const posts = await fetch("https://nightfeather-blog-functions.netlify.app/.netlify/functions/fetch-posts/")
-	.then((response) => response.text())
-	.then((text) => {
-		return JSON.parse(text).sort(
-			(a: PostInfo, b: PostInfo) => {
-				return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf();
-			}
-		) as Array<PostInfo>;
-	});
+const posts = await fetch(
+  'https://nightfeather-blog-functions.netlify.app/.netlify/functions/fetch-posts/'
+)
+  .then(response => response.text())
+  .then(text => {
+    return JSON.parse(text).sort((a: PostInfo, b: PostInfo) => {
+      return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+    }) as Array<PostInfo>
+  })
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={SITE_THUMBNAIL} />
-	</head>
-	<Body>
-		<Header title={SITE_TITLE} />
-		<main class="pt-[60px]">
-			<Masthead/>
-			<Content>
-				<section>
-					<p class="mb-6 text-center text-xl p-2">
-						簡單的生活日誌，紀錄由開發、活動、旅遊以及各種瑣事拼湊成的日常
-					</p>
-				</section>
-				<section>
-					<ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-						{posts.map((post) => {
-							return (
-								<li class="text-center mb-4">
-									<a class="group" href={`/posts/${post.id}`}>
-										<Image class="border-2 border-sky-200 dark:border-gray-800 rounded-xl md:group-hover:scale-[1.03] transition-all duration-300" fit="cover" format="webp" quality={100} src={post.thumbnail} width={720*2} aspectRatio={2} alt="Thumbnail" />
-										<div class="mt-3 text-xl group-hover:underline underline-offset-2">{post.title}</div>
-										<div class="opacity-70 group-hover:underline underline-offset-2">{post.description}</div>
-									</a>
-								</li>
-							);
-						})}
-					</ul>
-				</section>
-			</Content>
-		</main>
-		<p class="text-gray-500 pt-4 text-center">此網站開發受 <a class="underline underline-offset-2 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-50" href="https://www.craftz.dog/">Takuya Matsuyama</a> 的<a class="underline underline-offset-2 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-50" href="https://www.youtube.com/watch?v=3_JE76PKBWE">影片</a>啟發，將其中的 CMS 由 Inkdrop 改為 Notion 實現</p>
-		<Footer />
-	</Body>
-	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "de679a3d1fec44a2bc477bbe23be308f"}'></script><!-- End Cloudflare Web Analytics -->
+  <head>
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+      image={SITE_THUMBNAIL}
+    />
+  </head>
+  <Body>
+    <Header title={SITE_TITLE} />
+    <main class="pt-[60px]">
+      <Masthead />
+      <Content>
+        <section>
+          <p class="mb-6 text-center text-xl p-2">
+            簡單的生活日誌，紀錄由開發、活動、旅遊以及各種瑣事拼湊成的日常
+          </p>
+        </section>
+        <section>
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {
+              posts.map(post => {
+                return (
+                  <li class="text-center mb-4">
+                    <a class="group" href={`/posts/${post.id}`}>
+                      <Image
+                        class="border-2 border-sky-200 dark:border-gray-800 rounded-xl md:group-hover:scale-[1.03] transition-all duration-300"
+                        fit="cover"
+                        format="webp"
+                        quality={100}
+                        src={post.thumbnail}
+                        width={720 * 2}
+                        aspectRatio={2}
+                        alt="Thumbnail"
+                      />
+                      <div class="mt-3 text-xl group-hover:underline underline-offset-2">
+                        {post.title}
+                      </div>
+                      <div class="opacity-70 group-hover:underline underline-offset-2">
+                        {post.description}
+                      </div>
+                    </a>
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </section>
+      </Content>
+    </main>
+    <p class="text-gray-500 pt-4 text-center">
+      此網站開發受 <a
+        class="underline underline-offset-2 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-50"
+        href="https://www.craftz.dog/">Takuya Matsuyama</a
+      > 的<a
+        class="underline underline-offset-2 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-50"
+        href="https://www.youtube.com/watch?v=3_JE76PKBWE">影片</a
+      >啟發，將其中的 CMS 由 Inkdrop 改為 Notion 實現
+    </p>
+    <Footer />
+  </Body>
+  <!-- Cloudflare Web Analytics -->
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon="{"token": "de679a3d1fec44a2bc477bbe23be308f"}"
+  ></script><!-- End Cloudflare Web Analytics -->
 </html>
