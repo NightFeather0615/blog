@@ -12,6 +12,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypePrism from 'rehype-prism-plus';
 import remarkGfm from 'remark-gfm';
 import smartypants from 'remark-smartypants';
+import { Image } from '@astrojs/image/components';
 
 import '../styles/prism-nord.css';
 
@@ -64,12 +65,13 @@ const postContent = await unified()
         <div class="mb-8">
           {
             postData.thumbnail && (
-              <img
+              <Image
                 class="border border-sky-200 dark:border-gray-800 rounded-xl transition-colors"
+                fit="cover" format="webp" quality={100}
                 width={720}
                 height={360}
                 src={postData.thumbnail}
-                alt=""
+                alt="Post Thumbnail"
               />
             )
           }
