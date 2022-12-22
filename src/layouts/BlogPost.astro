@@ -73,11 +73,11 @@ const postContent = await unified()
                 fit="cover"
                 format="webp"
                 quality={100}
-                width={720}
-                height={360}
+                width={1440}
+                height={720}
                 src={postData.thumbnail}
                 loading="eager"
-                alt="Post Thumbnail"
+                alt={`Post Thumbnail ${postData.id}`}
               />
             )
           }
